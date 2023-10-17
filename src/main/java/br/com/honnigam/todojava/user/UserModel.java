@@ -1,37 +1,28 @@
 package br.com.honnigam.todojava.user;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Data  /* - LIB:Lombok - @Data / @Getters / @Setters */
+@Entity(name = "table_users") //na aplicação: conhecido como user ; no db: table
 public class UserModel {
+
+  @Id
+  @GeneratedValue(generator = "UUID")
+  private UUID id;
+
   private String name;
   private String username;
   private String password;
-  
 
-  // two types atributes => (getters / setters)
-  //inserir o valor
-  public void setName(String name) {
-    this.name = name;
-  }
-    //buscar o valor
-  public String getName() {
-    return name;
-  }
-    //inserir o valor
-  public void setUsername(String username) {
-    this.username = username;
-  }
-    //buscar o valor
-  public String getUsername() {
-    return username;
-  }
-    //inserir o valor
-  public void setPassword(String password) {
-    this.password = password;
-  }
-    //buscar o valor
-  public String getPassword() {
-    return password;
-  }
-
+  @CreationTimestamp
+  private LocalDateTime createAt;
 
 }
