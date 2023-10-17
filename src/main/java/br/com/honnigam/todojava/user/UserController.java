@@ -1,5 +1,6 @@
 package br.com.honnigam.todojava.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping ("/users")
 public class UserController {
   
+  @Autowired //lifecycle
+  private IUserRepository userRepository;
   //escopo de acesso
    /*
     * String
@@ -31,7 +34,8 @@ public class UserController {
     * A REQ vem direto do body
     */
   @PostMapping("/")
-  public void create(@RequestBody UserModel userModel) {
-      System.out.println(userModel.getUsername());
+  public UserModel create(@RequestBody UserModel userModel) {
+      var userCreated = this.userRepository.save(userModel);
+      return userCreated; 
   }
 }
